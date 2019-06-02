@@ -1,3 +1,4 @@
+.idea/*
 *.caffemodel
 *.solverstate
 *.h5
