@@ -1,3 +1,4 @@
+#coding=utf-8
 import os
 import numpy as np
 from sklearn.utils import shuffle
@@ -9,8 +10,9 @@ import sys
 import random
 import argparse
 from check import check
-
+import pdb
 exclude_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ非无'.decode('utf8')
+
 def load(img_names, kps):
     """Loads data from FTEST if *test* is True, otherwise from FTRAIN.
     Pass a list of *cols* if you're only interested in a subset of the
@@ -100,15 +102,17 @@ def batch_load(json_imgfolder_map):
             if os.path.basename(i) in json_file:
                 pt = json_file[os.path.basename(i)]
                 if len(pt) > 0:
-                    china_plate_index = 0
+                    found = False
                     if len(pt)>1:
-                        for jj in range[len(pt)]:
+                        for jj in range(len(pt)):
                             if pt[jj]['text'][0] not in exclude_chars:
                                 china_plate_index = jj
+                                found = True
                                 break
-                    print pt[china_plate_index]['text']
-                    img.append(i)
-                    pts.append(pt[china_plate_index]['coordinates'][:8])
+                    if found:
+                        print pt[china_plate_index]['text'].encode('utf8')
+                        img.append(i)
+                        pts.append(pt[china_plate_index]['coordinates'][:8])
 
     X, y = load(img, pts)
     X = np.swapaxes(X, 2, 3)
@@ -116,12 +120,13 @@ def batch_load(json_imgfolder_map):
     print(X.shape)
     #sep = 679000000
 
-    sep = int(y.shape[0] * .9)
+    #sep = int(y.shape[0] * .9)
+    sep = int(y.shape[0] * 1.0)
     print(sep)
     #writeHdf5('train',X[0:sep],y[0:sep], sys.argv[1])
     #writeHdf5('val',X[sep:],y[sep:], sys.argv[1])
     writeHdf5Batch('train',X[0:sep],y[0:sep], sys.argv[1])
-    writeHdf5Batch('val',X[sep:],y[sep:], sys.argv[1])
+    #writeHdf5Batch('val',X[sep:],y[sep:], sys.argv[1])
     #writeHdf5('train',X,y, sys.argv[1])
 
 if __name__ == '__main__':
