@@ -11,7 +11,7 @@ import random
 import argparse
 from check import check
 import pdb
-exclude_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ非无'.decode('utf8')
+exclude_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ非缺无'.decode('utf8')
 
 def load(img_names, kps):
     """Loads data from FTEST if *test* is True, otherwise from FTRAIN.
@@ -92,25 +92,26 @@ def writeHdf5Batch(t,data,label=None, suffix='', batch_size=5000):
 
 
 def batch_load(json_imgfolder_map):
-
+    img = []
+    pts = []
     for json_file, img_folder in json_imgfolder_map.iteritems():
         img_names = glob.glob(os.path.join(img_folder, '*.jpg'))
+        print img_folder, '\tNumber of images=', len(img_names)
         json_file = json.load(open(json_file))
-        img = []
-        pts = []
-        for i in img_names:
+        for idx, i in enumerate(img_names):
+            # pdb.set_trace()
             if os.path.basename(i) in json_file:
                 pt = json_file[os.path.basename(i)]
                 if len(pt) > 0:
                     found = False
-                    if len(pt)>1:
-                        for jj in range(len(pt)):
-                            if pt[jj]['text'][0] not in exclude_chars:
-                                china_plate_index = jj
-                                found = True
-                                break
+                    for jj in range(len(pt)):
+                        if pt[jj]['text'][0] not in exclude_chars:
+                            china_plate_index = jj
+                            found = True
+                            break
+                    if idx%500==0 and found:
+                        print idx, pt[china_plate_index]['text'].encode('utf8')
                     if found:
-                        print pt[china_plate_index]['text'].encode('utf8')
                         img.append(i)
                         pts.append(pt[china_plate_index]['coordinates'][:8])
 
@@ -118,7 +119,6 @@ def batch_load(json_imgfolder_map):
     X = np.swapaxes(X, 2, 3)
     X = np.swapaxes(X, 1, 2)
     print(X.shape)
-    #sep = 679000000
 
     #sep = int(y.shape[0] * .9)
     sep = int(y.shape[0] * 1.0)
@@ -134,6 +134,8 @@ if __name__ == '__main__':
 
     json_imgfolder_map = {
         #'/mnt/soulfs2/fzhou/data/wanda/label/20181119_carplate_wanda_0921.json':"/ssd/zq/parkinglot_pipeline/carplate/crops_all/data/WANDA/20180921/crops/":
-        '/ssd/wfei/data/plate_for_label/hk_double/20190515_HK_Double_Plates.json':'/ssd/wfei/data/plate_for_label/hk_double/car_crop_20190515'
+        '/ssd/wfei/data/plate_for_label/k11_1003/20181101_carplate_k11_1003.json':'/ssd/wfei/data/plate_for_label/k11_1003/crops',
+        '/ssd/wfei/data/plate_for_label/hk_double/20190515_HK_Double_Plates.json':'/ssd/wfei/data/plate_for_label/hk_double/car_crop_20190515',
+        '/ssd/wfei/data/plate_for_label/hongkong/k11_car_crop/20190220_k11b_hongkong_cnplate_labels_all.json':'/ssd/wfei/data/plate_for_label/hongkong/k11_car_crop/all_crop/'
     }
     batch_load(json_imgfolder_map)
