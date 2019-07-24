@@ -131,11 +131,16 @@ def batch_load(json_imgfolder_map):
 
 if __name__ == '__main__':
 
-
+    """k11 training data """ 
     json_imgfolder_map = {
-        #'/mnt/soulfs2/fzhou/data/wanda/label/20181119_carplate_wanda_0921.json':"/ssd/zq/parkinglot_pipeline/carplate/crops_all/data/WANDA/20180921/crops/":
+        '/mnt/soulfs2/fzhou/data/wanda/label/20181119_carplate_wanda_0921.json':"/ssd/zq/parkinglot_pipeline/carplate/crops_all/data/WANDA/20180921/crops/":
         '/ssd/wfei/data/plate_for_label/k11_1003/20181101_carplate_k11_1003.json':'/ssd/wfei/data/plate_for_label/k11_1003/crops',
         '/ssd/wfei/data/plate_for_label/hk_double/20190515_HK_Double_Plates.json':'/ssd/wfei/data/plate_for_label/hk_double/car_crop_20190515',
         '/ssd/wfei/data/plate_for_label/hongkong/k11_car_crop/20190220_k11b_hongkong_cnplate_labels_all.json':'/ssd/wfei/data/plate_for_label/hongkong/k11_car_crop/all_crop/'
     }
+    """wanda training data """ 
+    json_imgfolder_map = {
+        '/mnt/soulfs2/fzhou/data/wanda/label/20181119_carplate_wanda_0921.json':"/ssd/zq/parkinglot_pipeline/carplate/crops_all/data/WANDA/20180921/crops/":
+
+    } 
     batch_load(json_imgfolder_map)
