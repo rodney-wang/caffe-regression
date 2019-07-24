@@ -133,14 +133,19 @@ if __name__ == '__main__':
 
     """k11 training data """ 
     json_imgfolder_map = {
-        '/mnt/soulfs2/fzhou/data/wanda/label/20181119_carplate_wanda_0921.json':"/ssd/zq/parkinglot_pipeline/carplate/crops_all/data/WANDA/20180921/crops/":
+        '/mnt/soulfs2/fzhou/data/wanda/label/20181119_carplate_wanda_0921.json':"/ssd/zq/parkinglot_pipeline/carplate/crops_all/data/WANDA/20180921/crops/",
         '/ssd/wfei/data/plate_for_label/k11_1003/20181101_carplate_k11_1003.json':'/ssd/wfei/data/plate_for_label/k11_1003/crops',
         '/ssd/wfei/data/plate_for_label/hk_double/20190515_HK_Double_Plates.json':'/ssd/wfei/data/plate_for_label/hk_double/car_crop_20190515',
         '/ssd/wfei/data/plate_for_label/hongkong/k11_car_crop/20190220_k11b_hongkong_cnplate_labels_all.json':'/ssd/wfei/data/plate_for_label/hongkong/k11_car_crop/all_crop/'
     }
     """wanda training data """ 
     json_imgfolder_map = {
-        '/mnt/soulfs2/fzhou/data/wanda/label/20181119_carplate_wanda_0921.json':"/ssd/zq/parkinglot_pipeline/carplate/crops_all/data/WANDA/20180921/crops/":
-
-    } 
+        '/mnt/soulfs2/fzhou/data/wanda/label/20181119_carplate_wanda_0921.json': "/ssd/zq/parkinglot_pipeline/carplate/crops_all/data/WANDA/20180921/crops/",
+        '/ssd/wfei/data/plate_for_label/wanda_10k/20190311_wanda_1w_plate_det_benchmark_fixed.json': '/ssd/wfei/data/plate_for_label/wanda_10k/wanda_10k_filtered',
+        '/ssd/wfei/data/plate_for_label/wanda_b1_may/20190523_wanda_b1_20190510_11_carcrop.json': '/ssd/wfei/data/plate_for_label/wanda_b1_may/car_crop',
+        '/ssd/wfei/data/plate_for_label/wanda_entrance/20190604_wanda_entrance_may2829.json': '/ssd/wfei/data/plate_for_label/wanda_entrance/images',
+        '/ssd/wfei/data/plate_for_label/wanda_generic_15k/20190531_wanda_generic_15k.json': '/ssd/wfei/data/plate_for_label/wanda_generic_15k/images',
+        '/ssd/wfei/data/plate_for_label/wanda_track_bm/20190711_wanda_track_bm_20190707.json': '/ssd/wfei/data/plate_for_label/wanda_track_bm/20190707',
+        '/ssd/wfei/data/plate_for_label/energy_wanda/20190601_energy_wanda_16k.json': '/ssd/wfei/data/plate_for_label/energy_wanda/images'
+    }
     batch_load(json_imgfolder_map)
